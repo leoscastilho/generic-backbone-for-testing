@@ -1,3 +1,8 @@
+# Running 
+Navigate to the root folder and run the comman:  `docker compose up -d`
+
+---
+
 # Pending/ TODO
 <ul>
 <li>Create tables for Database With DB Initialized (Post Initializer)</li>
@@ -15,6 +20,20 @@ ___
 
 ## Tools to use locally and connect to the services:
 
+### Docker UI
+<ul>
+<li><strong>Tool Name:</strong> Portainer</li>
+<li><strong>Note:</strong> Setup user/pass on firts login </li>
+<li><strong>Online URL:</strong> https://localhost:9443</li>
+</ul>
+
+### Kafka
+<ul>
+<li><strong>Tool Name:</strong> Redpanda</li>
+<li><strong>Requirement:</strong> Running Redpanda in the docker-compose.yaml </li>
+<li><strong>Online URL:</strong> http://localhost:9444/overview</li>
+</ul>
+
 ### SFTP
 <ul>
 <li><strong>Tool Name:</strong> Cyberduck</li>
@@ -25,15 +44,6 @@ ___
 <li><strong>Username:</strong> rootuser</li>
 <li><strong>Password:</strong> password</li>
 </ul>
-
-
-### Kafka
-<ul>
-<li><strong>Tool Name:</strong> Redpanda</li>
-<li><strong>Requirement:</strong> Running Redpanda in the docker-compose.yaml </li>
-<li><strong>Online URL:</strong> http://localhost:8080/overview</li>
-</ul>
-
 
 ### Redis
 <ul>

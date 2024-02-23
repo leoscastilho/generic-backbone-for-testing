@@ -83,7 +83,7 @@ services:
     container_name: kafka-redpanda
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "9444:8080"
     environment:
       - KAFKA_BROKERS=kafka:9092
     deploy:
@@ -133,6 +133,19 @@ services:
 #      - ${PWD}/sftp/bindmount.sh:/etc/sftp.d/bindmount.sh
       - ${PWD}/sftp/keys/ssh_host_rsa_key.pub:/home/root/.ssh/ssh_host_rsa_key.pub:ro
       - ${PWD}/sftp/keys/ssh_host_ed25519_key.pub:/home/root/.ssh/ssh_host_ed25519_key.pub:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "200MB"
+
+###########################Portainer - Docker UI
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - 9443:9443
+    restart: unless-stopped
     deploy:
       resources:
         limits:
