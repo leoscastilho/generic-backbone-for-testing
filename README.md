@@ -24,14 +24,14 @@ ___
 <ul>
 <li><strong>Tool Name:</strong> Portainer</li>
 <li><strong>Note:</strong> Setup user/pass on firts login </li>
-<li><strong>Online URL:</strong> https://localhost:9443 </li>
+<li><strong>Online URL:</strong> https://localhost:9443/ </li>
 </ul>
 
 ### Kafka
 <ul>
 <li><strong>Tool Name:</strong> Redpanda</li>
 <li><strong>Requirement:</strong> Running Redpanda in the docker-compose.yaml </li>
-<li><strong>Online URL:</strong> http://localhost:9444/overview </li>
+<li><strong>Online URL:</strong> http://localhost:9444/overview/ </li>
 </ul>
 
 ### SFTP
