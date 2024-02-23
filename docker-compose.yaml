@@ -1,0 +1,145 @@
+version: "3.5"
+
+services:
+########################### POSTGRES DATABASE
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    hostname: db
+    environment:
+      - POSTGRES_USER=${ROOT_DB_USER}
+      - POSTGRES_PASSWORD=${ROOT_DB_PASSWORD}
+      # - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ${PWD}/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./postgres-data:/var/lib/postgresql/data # Change ./postgres-data to another directory if you don't want to use the default docker volume
+    command: postgres -c checkpoint_timeout=600 -c max_wal_size=4096
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "300MB"
+
+########################### KAFKA
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: kafka-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    restart: unless-stopped
+    ports:
+      - "22181:2181"
+    # volumes:
+    #   - ${PWD}/kafka/zk-data:/var/lib/zookeeper/data
+    #   - ${PWD}/kafka/zk-txn-logs:/var/lib/zookeeper/log
+    deploy:
+      resources:
+        limits:
+          cpus: "0.3"
+          memory: "400MB"
+  
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    restart: unless-stopped
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    # volumes:
+    #   - ${PWD}/kafka/kafka-data:/var/lib/kafka/data
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "1GB"
+
+  # Automatically creates required kafka topics if they were not created.
+  kafka-topics-creator:
+    build:
+      context: ./kafka/kafka-topics-creator
+      dockerfile: Dockerfile
+    container_name: kafka-topics-creator
+    platform: linux/x86_64
+    depends_on:
+      - zookeeper
+      - kafka
+    environment:
+      BOOTSTRAP_HOSTS: "kafka:9092"
+  
+  # Tool for visualizing Kafka
+  redpanda:
+    image: docker.redpanda.com/redpandadata/console:latest
+    container_name: kafka-redpanda
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - KAFKA_BROKERS=kafka:9092
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "300MB"
+
+###########################REDIS
+  redis:
+    image: redis:alpine
+    container_name: redis
+    command: redis-server --requirepass password
+    ports:
+#      - "6379:6379"
+      - target: 6379
+        published: 6379
+        protocol: tcp
+        mode: host
+    # volumes:
+    #   - ${PWD}/redis/data:/data
+    restart: always
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "100MB"
+
+###########################SFTP
+  sftp:
+    image: atmoz/sftp:latest
+    platform: linux/x86_64
+    container_name: sftp
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    expose:
+      - "22"
+    ports:
+      - "22:22"
+    command:
+      - rootuser:password:100:100:cdpna
+    volumes:
+      - ${PWD}/sftp/data/:/home/rootuser/cdpna
+#      - ${PWD}/sftp/bindmount.sh:/etc/sftp.d/bindmount.sh
+      - ${PWD}/sftp/keys/ssh_host_rsa_key.pub:/home/root/.ssh/ssh_host_rsa_key.pub:ro
+      - ${PWD}/sftp/keys/ssh_host_ed25519_key.pub:/home/root/.ssh/ssh_host_ed25519_key.pub:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "200MB"
+
+networks:
+  default:
+    driver: bridge
+    name: backbone-for-testing
