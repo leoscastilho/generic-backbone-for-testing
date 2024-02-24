@@ -34,6 +34,12 @@ ___
 <li><strong>Online URL:</strong> http://localhost:9444/overview/ </li>
 </ul>
 
+### Redis
+<ul>
+<li><strong>Tool Name:</strong> RedisInsight</li>
+<li><strong>Online URL:</strong> http://localhost:8001/ </li>
+</ul>
+
 ### SFTP
 <ul>
 <li><strong>Tool Name:</strong> Cyberduck</li>
@@ -43,18 +49,6 @@ ___
 <li><strong>Port:</strong> 22</li>
 <li><strong>Username:</strong> rootuser</li>
 <li><strong>Password:</strong> password</li>
-</ul>
-
-### Redis
-<ul>
-<li><strong>Tool Name:</strong> RedisInsight</li>
-<li><strong>Download Link:</strong> https://redis.com/redis-enterprise/redis-insight/#insight-form </li>
-<li><strong>Add Redis Database</strong></li>
-<li><strong>Host:</strong> localhost</li>
-<li><strong>Port:</strong> 6380</li>
-<li><strong>Database Alias:</strong> Local Redis Server</li>
-<li><strong>Username:</strong> _Leave Blank_</li>
-<li><strong>Passoword:</strong> password</li>
 </ul>
 
 #### MySQL
