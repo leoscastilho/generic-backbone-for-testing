@@ -115,13 +115,13 @@ Run the command below and make sure you can see the file "docker-compose.yaml". 
     
     $ ls -l
     total 16
-    -rw-r--r--@ 1 kisdev  staff  2243 May  8 11:25 README.md
-    -rw-r--r--  1 kisdev  staff  3518 May  8 10:42 docker-compose.yaml
-    drwxr-xr-x  5 kisdev  staff   160 May  7 17:29 kafka
-    drwxr-xr-x  5 kisdev  staff   160 May  7 20:00 mysql
-    drwxr-xr-x  3 kisdev  staff    96 May  7 20:08 redis
-    drwxr-xr-x  5 kisdev  staff   160 May  8 05:55 sftp
-    drwxr-xr-x  6 kisdev  staff   192 May  8 09:45 sqlserver
+    -rw-r--r--@ 1 YOURUSER  staff  2243 May  8 11:25 README.md
+    -rw-r--r--  1 YOURUSER  staff  3518 May  8 10:42 docker-compose.yaml
+    drwxr-xr-x  5 YOURUSER  staff   160 May  7 17:29 kafka
+    drwxr-xr-x  5 YOURUSER  staff   160 May  7 20:00 mysql
+    drwxr-xr-x  3 YOURUSER  staff    96 May  7 20:08 redis
+    drwxr-xr-x  5 YOURUSER  staff   160 May  8 05:55 sftp
+    drwxr-xr-x  6 YOURUSER  staff   192 May  8 09:45 sqlserver
 
 </li>
 
