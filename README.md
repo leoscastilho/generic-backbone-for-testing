@@ -29,9 +29,9 @@ ___
 
 ### Kafka
 <ul>
-<li><strong>Tool Name:</strong> Redpanda</li>
-<li><strong>Requirement:</strong> Running Redpanda in the docker-compose.yaml </li>
-<li><strong>Online URL:</strong> http://localhost:9444/overview/ </li>
+<li><strong>Tool Name:</strong> akhq - Kafka UI</li>
+<li><strong>Requirement:</strong> Running akhq in the docker-compose.yaml </li>
+<li><strong>Online URL:</strong> http://localhost:8080/ </li>
 </ul>
 
 ### Redis
