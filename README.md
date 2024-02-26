@@ -20,13 +20,6 @@ ___
 
 ## Tools to use locally and connect to the services:
 
-### Docker UI
-<ul>
-<li><strong>Tool Name:</strong> Portainer</li>
-<li><strong>Note:</strong> Setup user/pass on firts login </li>
-<li><strong>Online URL:</strong> https://localhost:9443/ </li>
-</ul>
-
 ### Kafka
 <ul>
 <li><strong>Tool Name:</strong> akhq - Kafka UI</li>

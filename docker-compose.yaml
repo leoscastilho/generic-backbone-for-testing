@@ -9,7 +9,7 @@ services:
     environment:
       - POSTGRES_USER=${ROOT_DB_USER}
       - POSTGRES_PASSWORD=${ROOT_DB_PASSWORD}
-      # - POSTGRES_DB=postgres
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
     volumes:
@@ -55,7 +55,7 @@ services:
   kafka-ui:
     container_name: kafka-ui
     image: tchiotludo/akhq
-    network_mode: host # Served on lcoalhost:8080 (Can not change due to network_mode)
+    network_mode: host # Served on localhost:8080 (Can not change due to network_mode)
     depends_on:
       - zookeeper
       - kafka
@@ -67,7 +67,7 @@ services:
               properties:
                 bootstrap.servers: "localhost:9092"
 
-###########################REDIS STACK (Server + RedisInsight)
+########################### REDIS STACK (Server + RedisInsight)
   redis:
     image: redis/redis-stack:latest
     container_name: redis-stack
@@ -83,7 +83,7 @@ services:
           cpus: "0.5"
           memory: "500MB"
 
-###########################SFTP
+########################### SFTP
   sftp:
     image: atmoz/sftp:latest
     platform: linux/x86_64
@@ -99,22 +99,8 @@ services:
       - rootuser:password:100:100:cdpna
     volumes:
       - ${PWD}/sftp/data/:/home/rootuser/cdpna
-#      - ${PWD}/sftp/bindmount.sh:/etc/sftp.d/bindmount.sh
       - ${PWD}/sftp/keys/ssh_host_rsa_key.pub:/home/root/.ssh/ssh_host_rsa_key.pub:ro
       - ${PWD}/sftp/keys/ssh_host_ed25519_key.pub:/home/root/.ssh/ssh_host_ed25519_key.pub:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "200MB"
-
-###########################Portainer - Docker UI
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    ports:
-      - 9443:9443
-    restart: unless-stopped
     deploy:
       resources:
         limits:
